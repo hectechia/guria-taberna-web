@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Guria Taberna | Sitges — Cocina vasca de alma servida frente al Mediterráneo. Pintxos, raciones y txakoli en el corazón de Sitges. Llama y reserva: 935 16 96 85." />
+  <meta name="keywords" content="taberna vasca Sitges, pintxos Sitges, restaurante vasco Sitges, Guria Taberna, comida vasca Barcelona" />
+  <title>Guria Taberna | Sitges — Cocina Vasca con Alma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── VARIABLES & RESET ─────────────────────────────────────────────── */
+    :root {
+      --vino:    #8B1A1A;
+      --vino-d:  #6a1313;
+      --vino-l:  #b02626;
+      --crema:   #F5F0E8;
+      --crema-d: #ede6d6;
+      --madera:  #3D2B1F;
+      --madera-l:#5a4033;
+      --oro:     #C9A84C;
+      --texto:   #2a1f18;
+      --blanco:  #fff;
+
+      --serif:  'Cormorant Garamond', Georgia, serif;
+      --sans:   'Jost', sans-serif;
+
+      --r: 8px;
+      --sombra: 0 8px 40px rgba(61,43,31,.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      color: var(--texto);
+      background: var(--crema);
+      overflow-x: hidden;
+    }
+
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a   { text-decoration: none; color: inherit; }
+
+    /* ── ANIMACIONES CSS ───────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(36px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes shimmer {
+      0%,100% { opacity: .7; }
+      50%      { opacity: 1; }
+    }
+    @keyframes lineDraw {
+      from { width: 0; }
+      to   { width: 60px; }
+    }
+    @keyframes floatBg {
+      0%,100% { background-position: 50% 0%; }
+      50%      { background-position: 50% 6%; }
+    }
+    @keyframes starPop {
+      0%   { transform: scale(0) rotate(-20deg); opacity: 0; }
+      70%  { transform: scale(1.2) rotate(4deg); }
+      100% { transform: scale(1) rotate(0deg);  opacity: 1; }
+    }
+
+    /* Scroll-reveal helper — activado con JS mínimo o simplemente en view */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── NAVBAR ────────────────────────────────────────────────────────── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 68px;
+      background: rgba(61,43,31,.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,.25);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--crema);
+      letter-spacing: .04em;
+      line-height: 1.1;
+    }
+    .nav-logo span { color: var(--oro); font-style: italic; }
+
+    nav { display: flex; align-items: center; gap: 2rem; }
+    nav a {
+      font-size: .82rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.8);
+      transition: color .25s;
+    }
+    nav a:hover { color: var(--oro); }
+
+    .nav-cta {
+      background: var(--vino);
+      color: var(--crema) !important;
+      padding: .5rem 1.25rem;
+      border-radius: 2px;
+      font-weight: 600 !important;
+      transition: background .25s !important;
+    }
+    .nav-cta:hover { background: var(--vino-l) !important; color: #fff !important; }
+
+    /* hamburger (mobile) */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span {
+      width: 26px; height: 2px;
+      background: var(--crema);
+      border-radius: 2px;
+      transition: .3s;
+    }
+
+    /* mobile nav */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: var(--madera);
+      padding: 2rem 5vw;
+      flex-direction: column;
+      gap: 1.25rem;
+      z-index: 998;
+      border-top: 1px solid rgba(201,168,76,.2);
+    }
+    .mobile-nav a {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--crema);
+      padding: .5rem 0;
+      border-bottom: 1px solid rgba(245,240,232,.1);
+    }
+    .mobile-nav .nav-cta { border: none; text-align: center; padding: .9rem; }
+    .mobile-nav.open { display: flex; }
+
+    /* ── HERO ──────────────────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg, rgba(139,26,26,.78) 0%, rgba(61,43,31,.92) 60%, rgba(20,10,5,.97) 100%),
+        url('https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=1600&q=80') center/cover no-repeat;
+      animation: floatBg 12s ease-in-out infinite;
+    }
+
+    /* grain overlay */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .45;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      padding: 2rem 1.5rem;
+      animation: fadeUp .9s ease both;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--sans);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--oro);
+      margin-bottom: 1.2rem;
+      animation: fadeIn 1s .3s both;
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      color: var(--crema);
+      line-height: 1.0;
+      margin-bottom: .6rem;
+      animation: fadeUp .9s .15s both;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--oro);
+    }
+
+    .hero-sub {
+      font-family: var(--serif);
+      font-size: clamp(1.1rem, 2.8vw, 1.55rem);
+      font-style: italic;
+      color: rgba(245,240,232,.8);
+      margin-bottom: 2.6rem;
+      font-weight: 400;
+      animation: fadeUp .9s .3s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      animation: fadeUp .9s .45s both;
+    }
+    @media(min-width:540px){
+      .hero-actions { flex-direction: row; justify-content: center; }
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: var(--vino);
+      color: var(--crema);
+      padding: 1rem 2.2rem;
+      font-family: var(--sans);
+      font-size: .88rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      border: 2px solid var(--vino);
+      transition: background .3s, transform .2s, box-shadow .3s;
+      box-shadow: 0 4px 24px rgba(139,26,26,.45);
+    }
+    .btn-primary:hover {
+      background: var(--vino-l);
+      border-color: var(--vino-l);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(139,26,26,.55);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: transparent;
+      color: var(--crema);
+      padding: 1rem 2.2rem;
+      font-family: var(--sans);
+      font-size: .88rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      border: 2px solid rgba(245,240,232,.45);
+      transition: border-color .3s, background .3s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--oro);
+      color: var(--oro);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      color: rgba(245,240,232,.5);
+      font-size: .7rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      animation: shimmer 2.5s ease-in-out infinite;
+    }
+    .hero-scroll::before {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, rgba(245,240,232,.5));
+    }
+
+    /* ── SECTION COMMONS ───────────────────────────────────────────────── */
+    section { padding: 6rem 5vw; }
+
+    .section-label {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--vino);
+      margin-bottom: .9rem;
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--madera);
+      margin-bottom: 1rem;
+    }
+
+    .section-line {
+      width: 0;
+      height: 2px;
+      background: var(--vino);
+      margin-bottom: 2rem;
+      animation: lineDraw .8s .3s forwards;
+      display: block;
+    }
+    .reveal.visible .section-line { animation: lineDraw .8s forwards; }
+
+    /* ── NOSOTROS ──────────────────────────────────────────────────────── */
+    #nosotros {
+      background: var(--madera);
+      color: var(--crema);
+      overflow: hidden;
+    }
+
+    .nosotros-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media(min-width:900px){
+      .nosotros-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .nosotros-img-wrap {
+      position: relative;
+      height: 480px;
+      border-radius: var(--r);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .nosotros-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .nosotros-img-wrap:hover img { transform: scale(1.04); }
+
+    /* decorative badge */
+    .img-badge {
+      position: absolute;
+      bottom: -1rem;
+      right: -1rem;
+      width: 120px; height: 120px;
+      background: var(--vino);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--crema);
+      text-align: center;
+      box-shadow: var(--sombra);
+      border: 3px solid var(--oro);
+    }
+    .img-badge .badge-num {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--oro);
+    }
+    .img-badge .badge-txt {
+      font-size: .6rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      line-height: 1.3;
+      padding: 0 .5rem;
+    }
+
+    #nosotros .section-label { color: var(--oro); }
+    #nosotros .section-title { color: var(--crema); }
+
+    .nosotros-text p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: rgba(245,240,232,.78);
+      margin-bottom: 1.2rem;
+    }
+
+    .nosotros-text p em {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--oro);
+    }
+
+    .nosotros-values {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .value-item {
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+    }
+    .value-item strong {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--oro);
+    }
+    .value-item span {
+      font-size: .75rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.55);
+    }
+
+    /* ── CARTA ─────────────────────────────────────────────────────────── */
+    #carta {
+      background: var(--crema);
+    }
+
+    .carta-header {
+      max-width: 600px;
+      margin: 0 auto 4rem;
+      text-align: center;
+    }
+
+    .carta-tabs {
+      display: flex;
+      gap: .5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 2px solid rgba(61,43,31,.2);
+      color: var(--madera-l);
+      padding: .55rem 1.4rem;
+      font-family: var(--sans);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all .25s;
+    }
+    .tab-btn:hover, .tab-btn.active {
+      background: var(--vino);
+      border-color: var(--vino);
+      color: var(--crema);
+    }
+
+    .carta-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: none;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.8rem;
+    }
+    .carta-grid.active { display: grid; }
+
+    .carta-card {
+      background: var(--blanco);
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(61,43,31,.09);
+      transition: transform .3s, box-shadow .3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .carta-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 32px rgba(61,43,31,.17);
+    }
+
+    .carta-img {
+      height: 190px;
+      overflow: hidden;
+      position: relative;
+    }
+    .carta-img img { transition: transform .5s ease; }
+    .carta-card:hover .carta-img img { transform: scale(1.06); }
+
+    .carta-tag {
+      position: absolute;
+      top: .75rem; right: .75rem;
+      background: var(--vino);
+      color: var(--crema);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: .3rem .7rem;
+      border-radius: 2px;
+    }
+
+    .carta-body {
+      padding: 1.3rem 1.4rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .carta-name {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--madera);
+      margin-bottom: .4rem;
+    }
+    .carta-desc {
+      font-size: .85rem;
+      line-height: 1.6;
+      color: #7a6255;
+      flex: 1;
+    }
+    .carta-price {
+      margin-top: 1rem;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--vino);
+    }
+
+    /* ── RESEÑAS ───────────────────────────────────────────────────────── */
+    #resenas {
+      background: var(--madera);
+      color: var(--crema);
+      text-align: center;
+    }
+
+    .rating-hero {
+      max-width: 500px;
+      margin: 0 auto 4rem;
+    }
+
+    .stars-display {
+      display: flex;
+      justify-content: center;
+      gap: .35rem;
+      margin-bottom: 1.2rem;
+    }
+    .star {
+      font-size: 2.8rem;
+      color: var(--oro);
+      display: inline-block;
+      animation: starPop .5s ease both;
+    }
+    .star:nth-child(1) { animation-delay: .05s; }
+    .star:nth-child(2) { animation-delay: .15s; }
+    .star:nth-child(3) { animation-delay: .25s; }
+    .star:nth-child(4) { animation-delay: .35s; }
+    .star:nth-child(5) { animation-delay: .45s; }
+
+    .rating-number {
+      font-family: var(--serif);
+      font-size: 5rem;
+      font-weight: 700;
+      color: var(--oro);
+      line-height: 1;
+      margin-bottom: .3rem;
+    }
+    .rating-count {
+      font-size: .85rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.55);
+    }
+    .rating-platform {
+      margin-top: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(201,168,76,.25);
+      border-radius: 100px;
+      padding: .4rem 1.1rem;
+      font-size: .78rem;
+      color: rgba(245,240,232,.65);
+      letter-spacing: .08em;
+    }
+
+    #resenas .section-label { color: var(--oro); }
+    #resenas .section-title { color: var(--crema); }
+
+    .reviews-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.8rem;
+    }
+    @media(min-width:700px){
+      .reviews-grid { grid-template-columns: repeat(3,1fr); }
+    }
+
+    .review-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(201,168,76,.15);
+      border-radius: var(--r);
+      padding: 2rem;
+      text-align: left;
+      transition: background .3s, transform .3s;
+      position: relative;
+    }
+    .review-card:hover {
+      background: rgba(255,255,255,.1);
+      transform: translateY(-4px);
+    }
+
+    .review-quote {
+      font-family: var(--serif);
+      font-size: 4rem;
+      line-height: .5;
+      color: var(--vino);
+      margin-bottom: .8rem;
+      display: block;
+      opacity: .7;
+    }
+
+    .review-text {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-style: italic;
+      line-height: 1.7;
+      color: rgba(245,240,232,.85);
+      margin-bottom: 1.5rem;
+    }
+
+    .review-stars {
+      display: flex;
+      gap: .2rem;
+      margin-bottom: .8rem;
+    }
+    .review-stars span { color: var(--oro); font-size: 1rem; }
+
+    .reviewer {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+    }
+    .reviewer-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--vino);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--crema);
+      flex-shrink: 0;
+      border: 2px solid var(--oro);
+    }
+    .reviewer-info strong {
+      display: block;
+      font-size: .9rem;
+      color: var(--crema);
+    }
+    .reviewer-info span {
+      font-size: .75rem;
+      color: rgba(245,240,232,.45);
+      letter-spacing: .06em;
+    }
+
+    /* ── ENCUÉNTRANOS ──────────────────────────────────────────────────── */
+    #encuentranos {
+      background: var(--crema-d);
+    }
+
+    .encuentranos-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media(min-width:900px){
+      .encuentranos-inner { grid-template-columns: 1fr 1.4fr; }
+    }
+
+    .info-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2.2rem;
+    }
+
+    .info-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+
+    .info-icon {
+      width: 46px; height: 46px;
+      flex-shrink: 0;
+      background: var(--vino);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--crema);
+      box-shadow: 0 4px 14px rgba(139,26,26,.3);
+    }
+
+    .info-item h4 {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--madera);
+      margin-bottom: .3rem;
+    }
+    .info-item p, .info-item a {
+      font-size: .92rem;
+      line-height: 1.7;
+      color: var(--madera-l);
+    }
+    .info-item a:hover { color: var(--vino); }
+
+    .horario-table { width: 100%; border-collapse: collapse; margin-top: .5rem; }
+    .horario-table tr td {
+      font-size: .88rem;
+      padding: .3rem 0;
+      color: var(--madera-l);
+    }
+    .horario-table tr td:first-child {
+      font-weight: 600;
+      color: var(--madera);
+      width: 110px;
+    }
+    .cerrado { color: rgba(139,26,26,.7) !important; font-style: italic; }
+
+    .map-wrap {
+      border-radius: var(--r);
+      overflow: hidden;
+      height: 420px;
+      box-shadow: var(--sombra);
+      border: 3px solid rgba(61,43,31,.12);
+    }
+    .map-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    /* ── FOOTER ────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--madera);
+      color: rgba(245,240,232,.6);
+      padding: 3.5rem 5vw 2.5rem;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(201,168,76,.15);
+      margin-bottom: 2rem;
+    }
+    @media(min-width:700px){
+      .footer-top { grid-template-columns: 1.5fr 1fr 1fr; }
+    }
+
+    .footer-brand .footer-logo {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--crema);
+      margin-bottom: .5rem;
+    }
+    .footer-brand .footer-logo span { color: var(--oro); font-style: italic; }
+    .footer-brand p {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-style: italic;
+      color: rgba(245,240,232,.5);
+    }
+
+    .footer-col h5 {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--oro);
+      margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+    .footer-col ul li a {
+      font-size: .88rem;
+      color: rgba(245,240,232,.6);
+      transition: color .25s;
+    }
+    .footer-col ul li a:hover { color: var(--crema); }
+
+    .footer-contact p {
+      font-size: .88rem;
+      line-height: 1.8;
+      color: rgba(245,240,232,.6);
+    }
+    .footer-contact a { color: var(--oro); transition: color .25s; }
+    .footer-contact a:hover { color: var(--crema); }
+
+    .footer-bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .8rem;
+      text-align: center;
+    }
+    @media(min-width:600px){
+      .footer-bottom { flex-direction: row; justify-content: space-between; text-align: left; }
+    }
+
+    .footer-bottom p { font-size: .78rem; }
+
+    .footer-gmaps-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(201,168,76,.25);
+      border-radius: 100px;
+      padding: .5rem 1.2rem;
+      font-size: .78rem;
+      color: var(--oro);
+      transition: background .25s, color .25s;
+    }
+    .footer-gmaps-link:hover { background: var(--vino); color: var(--crema); }
+
+    /* ── FLOATING CALL BTN (mobile) ───────────────────────────────────── */
+    .call-float {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 990;
+      background: var(--vino);
+      color: var(--crema);
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 20px rgba(139,26,26,.55);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .call-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 30px rgba(139,26,26,.65);
+    }
+    @media(min-width:900px){ .call-float { display: none; } }
+
+    /* ── UTILITIES ────────────────────────────────────────────────────── */
+    .text-center { text-align: center; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+
+    /* RESPONSIVE NAV */
+    @media(max-width:768px){
+      nav { display: none; }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══ NAVBAR ════════════════════════════════════════════════════════ -->
+  <header>
+    <a href="#hero" class="nav-logo">Guria <span>Taberna</span></a>
+    <nav>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#carta">Carta</a>
+      <a href="#resenas">Reseñas</a>
+      <a href="#encuentranos">Ubicación</a>
+      <a href="tel:+34935169685" class="nav-cta">📞 Reservar</a>
+    </nav>
+    <div class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#nosotros" onclick="toggleMenu()">Nosotros</a>
+    <a href="#carta" onclick="toggleMenu()">Carta</a>
+    <a href="#resenas" onclick="toggleMenu()">Reseñas</a>
+    <a href="#encuentranos" onclick="toggleMenu()">Ubicación</a>
+    <a href="tel:+34935169685" class="nav-cta" onclick="toggleMenu()">📞 Llamar y Reservar</a>
+  </div>
+
+  <!-- ══ HERO ══════════════════════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">✦ Taberna Vasca · Sitges desde 2008 ✦</p>
+      <h1 class="hero-title">Guria <em>Taberna</em></h1>
+      <p class="hero-sub">Cocina vasca de alma, servida frente al Mediterráneo.</p>
+      <div class="hero-actions">
+        <a href="tel:+34935169685" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l.86-1a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.5 16z"/></svg>
+          Reserva ahora
+        </a>
+        <a href="#carta" class="btn-ghost">Ver la Carta</a>
+      </div>
+    </div>
+    <div class="hero-scroll">Descubrir</div>
+  </section>
+
+  <!-- ══ NOSOTROS ══════════════════════════════════════════════════════ -->
+  <section id="nosotros">
+    <div class="nosotros-grid">
+      <div class="nosotros-img-wrap reveal">
+        <img
+          src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=80"
+          alt="Interior acogedor de Guria Taberna Sitges"
+          loading="lazy"
+        />
+        <div class="img-badge">
+          <span class="badge-num">4.7</span>
+          <span class="badge-txt">⭐ Google Reviews</span>
+        </div>
+      </div>
+
+      <div class="nosotros-text reveal">
+        <span class="section-label">Nuestra historia</span>
+        <h2 class="section-title">Una taberna con alma vasca en el corazón de Sitges</h2>
+        <span class="section-line"></span>
+        <p>Hay lugares que uno no olvida. <em>Guria Taberna</em> es uno de ellos. Nacida de la pasión por la gastronomía del País Vasco y enamorada del espíritu mediterráneo de Sitges, nuestra taberna lleva años siendo el rincón donde los sabores de verdad tienen nombre propio.</p>
+        <p>Cada pintxo que sale de nuestra cocina cuenta una historia de producto honesto, técnica cuidada y amor por el oficio. Desde el txakoli fresco hasta las raciones de bacalao al pil-pil, todo tiene el sello de quien cocina con convicción, no con prisa.</p>
+        <p>Ven, pide una mesa, escucha el murmullo de la sala y déjate llevar. <em>Aquí el tiempo pasa distinto.</em></p>
+
+        <div class="nosotros-values">
+          <div class="value-item">
+            <strong>+15</strong>
+            <span>Años de oficio</span>
+          </div>
+          <div class="value-item">
+            <strong>1.411</strong>
+            <span>Reseñas en Google</span>
+          </div>
+          <div class="value-item">
+            <strong>100%</strong>
+            <span>Producto de mercado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CARTA ═════════════════════════════════════════════════════════ -->
+  <section id="carta">
+    <div class="carta-header reveal">
+      <span class="section-label">Lo que servimos</span>
+      <h2 class="section-title">Nuestra Carta</h2>
+      <p style="font-size:.98rem;line-height:1.75;color:#7a6255;max-width:480px;margin:0 auto;">Producto de temporada, recetas de siempre y un respeto absoluto por la materia prima. Así se cocina en Guria.</p>
+    </div>
+
+    <div class="carta-tabs reveal">
+      <button class="tab-btn active" onclick="showTab('pintxos', this)">🫒 Pintxos</button>
+      <button class="tab-btn" onclick="showTab('raciones', this)">🍽 Raciones</button>
+      <button class="tab-btn" onclick="showTab('vinos', this)">🍷 Vinos</button>
+      <button class="tab-btn" onclick="showTab('txakoli', this)">🥂 Txakoli</button>
+    </div>
+
+    <!-- PINTXOS -->
+    <div class="carta-grid active" id="tab-pintxos">
+      <div class="carta-card reveal">
+        <div class="carta-img">
+          <img src="https://images.unsplash.com/photo-1535514682810-0a1deb8f6d1d?w=600&q=80" alt="Pintxo de Gilda" loading="lazy" />
+          <span class="carta-tag">Clásico</span>
+        </div>
+        <div class="carta-body">
+          <p class="carta-name">Gilda de la Casa</p>
+          <p class="carta-desc">Aceituna gordal, guindilla y anchoa del Cantábrico sobre pan tostado artesano. El pintxo más icónico de Euskadi.</p>
+          <p class="carta-price">2,80 €</p>
+        </div>
+      </div>
+      <div class="carta-card reveal">
+        <div class="carta-img">
+          <img src="https://images.unsplash.com/photo-1607198179219-5b2bffbe18a4?w=600&q=80" alt="Pintxo de txangurro" loading="lazy" />
+          <span class="carta-tag">Especial</span>
+        </div>
+        <div class="carta-body">
+          <p class="carta-name">Txangurro Gratinado</p>
+          <p class="carta-desc">Cangrejo de roca del Cantábrico, gratinado al horno con su propia bisque y toque de brandy de Jerez.</p>
+          <p class="carta-price">4,50 €</p>
+        </div>
+      </div>
+      <div class="carta-card reveal">
+        <div class="carta-img">
+          <img src="https://images.unsplash.com/photo-1544025162-d76538b2d564?w=600&q=80" alt="Pintxo de foie" loading="lazy" />
+          <span class="carta-tag">Temporada</span>
+        </div>
+        <div class="carta-body">
+          <p class="carta-name">Foie a la Plancha</p>
+          <p class="carta-desc">Foie de pato a la plancha, mermelada de higos y sal Maldon sobre brioche tostado. Un bocado que no se olvida.</p>
+          <p class="carta-price">5,20 €</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RACIONES -->
+    <div class="carta-grid" id="tab-raciones">
+      <div class="carta-card reveal">
+        <div class="carta-img">
+          <img src="https://images.unsplash.com/photo-1618449840665-9ed506d73a34?w=600&q=80" alt="Bacalao al pil-pil" loading="lazy" />
+          <span class="carta-tag">Favorito</span>
+        </div>
+        <div class="carta-body">
+          <p class="carta-name">Bacalao al Pil-Pil</p>
+          <p class="carta-desc">Lomo de bacalao desalado a la perfección, confitado a baja temperatura con aceite de oliva virgen extra y ajo. Técnica y sabor.</p>
+          <p class="carta-price">18,00 €</p>
+        </div>
+      </div>
+      <div class="carta-card reveal">
+        <div class="carta-img">
+          <img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&q=80" alt="Chuletillas de cordero" loading="lazy" />
+          <span class="carta-tag">Del fuego</span>
+        </div>
+        <div class="carta-body">
+          <p class="carta-name">Chuletillas a la Brasa</p>
+          <p class="carta-desc">Chuletillas de cordero lechal de Castilla a la parrilla, con pimientos del piquillo asados y chimichurri vasco.</p>
+          <p class="carta-price">22,00 €</p>
+        </div>
+      </div>
+      <div class="carta-card reveal">
+        <div class="carta-img">
+          <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=80" alt="Pulpo a la brasa" loading="lazy" />
+          <span class="carta-tag">Mar</span>
+        </div>
+        <div class="carta-body">
+          <p class="carta-name">Pulpo a la Brasa</p>
+          <p class="carta-desc">Pulpo gallego cocido y marcado en brasa, sobre crema de patata ahumada y pimentón de la Vera. Tradición en dos bocados.</p>
+          <p class="carta-price">19,50 €</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- VINOS -->
+    <div class="carta-grid" id="tab-vinos">
+      <div class="carta-card reveal">
+        <div class="carta-img">
+          <img src="https://images.unsplash.com/photo-1516594798947-e65505dbb29d?w=600&q=80" alt="Rioja Reserva" loading="lazy" />
+          <span class="carta-tag">Rioja</span>
+        </div>
+        <div class="carta-body">
+          <p class="carta-name">Rioja Reserva 2019</p>
+          <p class="carta-desc">Tempranillo con paso por roble americano y francés. Notas de vainilla, ciruela y especias suaves. Largo y elegante.</p>
+          <p class="carta-price">28,00 € / botella</p>
+        </div>
+      </div>
+      <div class="carta-card reveal">
+        <div class="carta-img">
+          <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80" alt="Ribera del Duero" loading="lazy" />
+          <span class="carta-tag">Ribera</span>
+        </div>
+        <div class="carta-body">
+          <p class="carta-name">Ribera del Duero Joven</p>
+          <p class="carta-desc">Tinto joven de uva Tinta del País. Frutal, fresco, con taninos suaves y final vivaz. Perfecto con las raciones de carne.</p>
+          <p class="carta-price">22,00 € / botella</p>
+        </div>
+      </div>
+      <div class="carta-card reveal">
+        <div class="carta-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Albariño Rías Baixas" loading="lazy" />
+          <span class="carta-tag">Blanco</span>
+        </div>
+        <div class="carta-body">
+          <p class="carta-name">Albariño Rías Baixas</p>
+          <p class="carta-desc">Blanco atlántico con viveza única. Floral, cítrico y mineral. Incomparable con el bacalao y el marisco de nuestra carta.</p>
+          <p class="carta-price">24,00 € / botella</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TXAKOLI -->
+    <div class="carta-grid" id="tab-txakoli">
+      <div class="carta-card reveal">
+        <div class="carta-img">
+          <img src="https://images.unsplash.com/photo-1547595628-c61a29f496f0?w=600&q=80" alt="Txakoli Getaria" loading="lazy" />
+          <span class="carta-tag">D.O. Getaria</span>
+        </div>
+        <div class="carta-body">
+          <p class="carta-name">Txakoli Getariako</p>
+          <p class="carta-desc">El txakoli más icónico del País Vasco. Ligeramente efervescente, con aroma a hierba fresca y mar. Servido en chorro largo para airear.</p>
+          <p class="carta-price">4,50 € / copa · 22 € botella</p>
+        </div>
+      </div>
+      <div class="carta-card reveal">
+        <div class="carta-img">
+          <img src="https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=600&q=80" alt="Txakoli Bizkaiko" loading="lazy" />
+          <span class="carta-tag">D.O. Bizkaia</span>
+        </div>
+        <div class="carta-body">
+          <p class="carta-name">Txakoli Bizkaiko</p>
+          <p class="carta-desc">De viñedos en ladera junto al Cantábrico. Más redondo y con cuerpo que el getariako, ideal para maridar con pintxos de interior.</p>
+          <p class="carta-price">4,80 € / copa · 24 € botella</p>
+        </div>
+      </div>
+      <div class="carta-card reveal">
+        <div class="carta-img">
+          <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&q=80" alt="Txakoli Rosado" loading="lazy" />
+          <span class="carta-tag">Rosado</span>
+        </div>
+        <div class="carta-body">
+          <p class="carta-name">Txakoli Rosado</p>
+          <p class="carta-desc">Elaborado con uva Hondarribi Beltza. De un rosado pálido precioso, con aromas de fresa silvestre y pomelo. Una joya escasa.</p>
+          <p class="carta-price">5,00 € / copa · 26 € botella</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ RESEÑAS ════════════════════════════════════════════════════════ -->
+  <section id="resenas">
+    <div class="rating-hero reveal text-center">
+      <span class="section-label" style="display:block;text-align:center;">Lo que dicen nuestros clientes</span>
+      <h2 class="section-title" style="color:var(--crema);">Más de 1.411 voces no mienten</h2>
+
+      <div class="stars-display">
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+      </div>
+      <div class="rating-number">4.7</div>
+      <p class="rating-count">1.411 reseñas verificadas</p>
+      <a href="https://maps.google.com/?cid=12494571211284482842" target="_blank" rel="noopener" class="rating-platform">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Ver en Google Maps
+      </a>
+    </div>
+
+    <div class="reviews-grid">
+
+      <div class="review-card reveal">
+        <span class="review-quote">"</span>
+        <div class="review-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="review-text">Llevábamos años queriendo visitar Sitges y Guria fue la revelación del viaje. El bacalao al pil-pil estaba a un nivel que no esperábamos encontrar fuera de Euskadi. El ambiente es íntimo, la barra de pintxos preciosa y el personal encantador. Volveremos sin duda.</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">M</div>
+          <div class="reviewer-info">
+            <strong>Marta A.</strong>
+            <span>Barcelona · hace 2 semanas</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal">
+        <span class="review-quote">"</span>
+        <div class="review-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="review-text">We were recommended Guria by a local friend and it was absolutely spot on. The pintxos are the real deal — not a tourist trap version of Basque food, but the authentic stuff. The txakoli was poured properly, high up, just like in San Sebastián. A gem in Sitges.</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">J</div>
+          <div class="reviewer-info">
+            <strong>James O.</strong>
+            <span>London, UK · hace 1 mes</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal">
+        <span class="review-quote">"</span>
+        <div class="review-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="review-text">Hemos comido en muchas tabernas vascas y Guria está entre las mejores, con diferencia. El foie a la plancha es un vicio, las chuletillas a la brasa son perfectas y el trato es de diez. Precio muy razonable para la calidad que ofrecen. Local pequeño, llena rápido: reservad.</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">R</div>
+          <div class="reviewer-info">
+            <strong>Roberto F.</strong>
+            <span>Madrid · hace 3 semanas</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center" style="margin-top:3rem;">
+      <a href="https://maps.google.com/?cid=12494571211284482842" target="_blank" rel="noopener" class="btn-ghost" style="display:inline-flex;border-color:rgba(201,168,76,.4);color:var(--oro);">
+        Leer todas las reseñas en Google →
+      </a>
+    </div>
+  </section>
+
+  <!-- ══ ENCUÉNTRANOS ═══════════════════════════════════════════════════ -->
+  <section id="encuentranos">
+    <div class="encuentranos-inner">
+      <div class="info-block reveal">
+        <div style="margin-bottom:1rem;">
+          <span class="section-label">Cómo llegar</span>
+          <h2 class="section-title">Encuéntranos</h2>
+          <span class="section-line"></span>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div>
+            <h4>Dirección</h4>
+            <p>Carrer de Sant Pere, 30<br>08870 Sitges, Barcelona</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">📞</div>
+          <div>
+            <h4>Reservas y consultas</h4>
+            <a href="tel:+34935169685">935 16 96 85</a>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">🕐</div>
+          <div>
+            <h4>Horario</h4>
+            <table class="horario-table">
+              <tr><td>Lun – Jue</td><td>13:00 – 16:00 · 20:00 – 23:00</td></tr>
+              <tr><td>Vie – Sáb</td><td>13:00 – 16:30 · 20:00 – 23:30</td></tr>
+              <tr><td>Domingo</td><td>13:00 – 16:30</td></tr>
+              <tr><td>Martes</td><td class="cerrado">Cerrado</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">🚆</div>
+          <div>
+            <h4>Cómo llegar</h4>
+            <p>Rodalies R2S desde Barcelona Sants (40 min). A 8 min a pie de la estación de Sitges.</p>
+          </div>
+        </div>
+
+        <a href="tel:+34935169685" class="btn-primary" style="align-self:flex-start;margin-top:.5rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l.86-1a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.5 16z"/></svg>
+          Llamar para reservar
+        </a>
+      </div>
+
+      <div class="map-wrap reveal">
+        <iframe
+          title="Guria Taberna en Google Maps"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.6!2d1.8108!3d41.2376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a480b7a5b1f00d%3A0xad4bc8a9f43b6f1a!2sCarrer%20de%20Sant%20Pere%2C%2030%2C%2008870%20Sitges%2C%20Barcelona!5e0!3m2!1ses!2ses!4v1700000000000!5m2!1ses!2ses"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ═════════════════════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">Guria <span>Taberna</span></div>
+          <p>Cocina vasca de alma,<br>servida frente al Mediterráneo.</p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Navegación</h5>
+          <ul>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#carta">Carta</a></li>
+            <li><a href="#resenas">Reseñas</a></li>
+            <li><a href="#encuentranos">Encuéntranos</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col footer-contact">
+          <h5>Contacto</h5>
+          <p>
+            Carrer de Sant Pere, 30<br>
+            08870 Sitges, Barcelona<br><br>
+            <a href="tel:+34935169685">935 16 96 85</a><br><br>
+            <a href="https://maps.google.com/?cid=12494571211284482842" target="_blank" rel="noopener" class="footer-gmaps-link">
+              📍 Ver en Google Maps
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 Guria Taberna | Sitges. Todos los derechos reservados.</p>
+        <p>Hecho con ❤️ en Sitges</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══ FLOATING CALL BUTTON (mobile) ══════════════════════════════════ -->
+  <a href="tel:+34935169685" class="call-float" aria-label="Llamar para reservar">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l.86-1a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.5 16z"/></svg>
+  </a>
+
+  <!-- ══ JS MÍNIMO ══════════════════════════════════════════════════════ -->
+  <script>
+    /* --- Hamburger menu --- */
+    function toggleMenu() {
+      document.getElementById('mobileNav').classList.toggle('open');
+    }
+
+    /* --- Carta tabs --- */
+    function showTab(id, btn) {
+      document.querySelectorAll('.carta-grid').forEach(g => g.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    /* --- Scroll reveal (IntersectionObserver) --- */
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    /* --- Close mobile nav on outside click --- */
+    document.addEventListener('click', (e) => {
+      const nav = document.getElementById('mobileNav');
+      const hamburger = document.querySelector('.hamburger');
+      if (nav.classList.contains('open') && !nav.contains(e.target) && !hamburger.contains(e.target)) {
+        nav.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>
